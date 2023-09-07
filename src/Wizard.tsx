@@ -1,32 +1,84 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 import Arcade from "../requirements/assets/images/icon-arcade.svg";
 import Advanced from "../requirements/assets/images/icon-advanced.svg";
 import Pro from "../requirements/assets/images/icon-pro.svg";
 import Toggle from "../requirements/assets/images/toggle.png";
 
-const Wizard = () => {
-  const [current, setCurrent] = useState(0);
-  const child1 = (
-    <div>
-      <div className="content-title">Personal Info</div>
+type Action =
+  | { type: "setArcadePlan" }
+  | { type: "setAdvancedPlan" }
+  | { type: "setProPlan" }
+  | { type: "toggleOnlineService" }
+  | { type: "toggleStorage" }
+  | { type: "toggleCustomProfile" };
 
-      <div className="bottom-padding-200">
-        Please provide your name, email address and phone number.
-      </div>
+type WizardState = {
+  selectedPlan: "Arcade" | "Advanced" | "Pro" | "";
 
-      <div className="input-container  bottom-padding-100">
-        <label className="color-gray input-labels"> Name</label>
-        <input type="text" id="fname" name="fname"></input>
-      </div>
-      <div className="input-container bottom-padding-100">
-        <label className="color-gray input-labels"> Email Address</label>
-        <input type="text" id="fname" name="fname"></input>
-      </div>
-    </div>
-  );
+  addonOnlineService: boolean;
+  addonStorage: boolean;
+  addonCustomProfile: boolean;
+};
 
-  const child2 = (
+type ReducerProps = {
+  dispatch: React.Dispatch<Action>;
+  state: WizardState;
+};
+
+function reducer(state: WizardState, action: Action) {
+  console.log("Reducer called ", action.type);
+  if (action.type === "setArcadePlan") {
+    return {
+      ...state,
+      selectedPlan: "Arcade",
+    };
+  }
+
+  if (action.type === "setAdvancedPlan") {
+    return {
+      ...state,
+      selectedPlan: "Advanced",
+    };
+  }
+
+  if (action.type === "setProPlan") {
+    return {
+      ...state,
+      selectedPlan: "Pro",
+    };
+  }
+
+  ///////////
+
+  if (action.type === "toggleOnlineService") {
+    return {
+      ...state,
+      addonOnlineService: !state.addonOnlineService,
+    };
+  }
+
+  if (action.type === "toggleStorage") {
+    return {
+      ...state,
+      addonStorage: !state.addonStorage,
+    };
+  }
+
+  if (action.type === "toggleCustomProfile") {
+    return {
+      ...state,
+      addonCustomProfile: !state.addonCustomProfile,
+    };
+  }
+
+  throw Error("Unknown action.");
+
+  return { ...state };
+}
+
+const PlanSelector = ({ dispatch, state }: ReducerProps) => {
+  return (
     <div>
       <div className="content-title">Select your plan</div>
 
@@ -35,16 +87,26 @@ const Wizard = () => {
       </div>
 
       <div className="plan-container  bottom-padding-100">
-        <div className="plan-item">
+        <div
+          className={`plan-item ${
+            state.selectedPlan === "Arcade" ? "selected" : ""
+          }`}
+          onClick={() => dispatch({ type: "setArcadePlan" })}
+        >
+          {" "}
           <img height={30} src={Arcade}></img>
-
           <div className="plan-text">
             <label className="plan-title"> Arcade</label>
             <label className="plan-subtitle"> $90/yr</label>
             <label className="months-free plan-subtitle"> 2 months free</label>
           </div>
         </div>
-        <div className="plan-item">
+        <div
+          className={`plan-item ${
+            state.selectedPlan === "Advanced" ? "selected" : ""
+          }`}
+          onClick={() => dispatch({ type: "setAdvancedPlan" })}
+        >
           <img height={30} src={Advanced}></img>
 
           <div className="plan-text">
@@ -53,7 +115,12 @@ const Wizard = () => {
             <label className="months-free plan-subtitle"> 2 months free</label>
           </div>
         </div>
-        <div className="plan-item selected">
+        <div
+          className={`plan-item ${
+            state.selectedPlan === "Pro" ? "selected" : ""
+          }`}
+          onClick={() => dispatch({ type: "setProPlan" })}
+        >
           <img height={30} src={Pro}></img>
 
           <div className="plan-text">
@@ -71,8 +138,22 @@ const Wizard = () => {
       </div>
     </div>
   );
+};
 
-  const child3 = (
+const AddonSelector = ({ dispatch, state }: ReducerProps) => {
+  const toggleOnlineService = () => {
+    dispatch({ type: "toggleOnlineService" });
+  };
+
+  const toggleStorage = () => {
+    dispatch({ type: "toggleStorage" });
+  };
+
+  const toggleCustomProfile = () => {
+    dispatch({ type: "toggleCustomProfile" });
+  };
+
+  return (
     <div>
       <div className="content-title">Pick add-ons</div>
 
@@ -81,33 +162,102 @@ const Wizard = () => {
       </div>
 
       <div className="addons-container column-container gap8 bottom-padding-100">
-        <div className="addon-item row-container">
-          <input type="checkbox" checked></input>
+        <div
+          onClick={toggleOnlineService}
+          className={`addon-item row-container ${
+            state.addonOnlineService ? "selected" : ""
+          } `}
+        >
+          <input
+            type="checkbox"
+            checked={state.addonOnlineService}
+            onChange={() => {}}
+          ></input>
           <div className="addon-text column-container">
             <label className="addon-title"> Online service</label>
             <label className="addon-subtitle">
-              {" "}
               Access to multiplayer games
             </label>
           </div>
         </div>
-        <div className="addon-item row-container selected">
-          <input type="checkbox" checked></input>
+        <div
+          onClick={toggleStorage}
+          className={`addon-item row-container ${
+            state.addonStorage ? "selected" : ""
+          } `}
+        >
+          <input
+            type="checkbox"
+            checked={state.addonStorage}
+            onChange={() => {}}
+          ></input>
           <div className="addon-text column-container">
             <label className="addon-title"> Larger storage</label>
             <label className="addon-subtitle"> Extra 1TB of cloud save</label>
           </div>
         </div>
-        <div className="addon-item row-container selected">
-          <input type="checkbox" checked></input>
+        <div
+          onClick={toggleCustomProfile}
+          className={`addon-item row-container ${
+            state.addonCustomProfile ? "selected" : ""
+          } `}
+        >
+          <input
+            type="checkbox"
+            checked={state.addonCustomProfile}
+            onChange={() => {}}
+          ></input>
           <div className="addon-text column-container">
             <label className="addon-title"> Customizable profile</label>
             <label className="addon-subtitle">
-              {" "}
               Custom theme on your profile
             </label>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const Wizard = () => {
+  const [current, setCurrent] = useState(0);
+
+  // each child can pass its own reducer function
+  // we will call all reducers of our children
+  // this will simulate redux but wont contain all the boilerplate
+
+  const [state, dispatch] = useReducer(reducer, {
+    selectedPlan: "",
+    addonOnlineService: false,
+    addonStorage: false,
+    addonCustomProfile: false,
+  });
+
+  const child1 = (
+    <div>
+      <div className="content-title">Personal Info</div>
+
+      <div className="bottom-padding-200">
+        Please provide your name, email address and phone number.
+      </div>
+
+      <div className="input-container  bottom-padding-100">
+        <label className="color-gray input-labels"> Name</label>
+        <input type="text"></input>
+      </div>
+      <div className="input-container bottom-padding-100">
+        <label className="color-gray input-labels"> Email Address</label>
+        <input type="text"></input>
+      </div>
+      <div className="input-container bottom-padding-100">
+        <div className="row-container row-space-between grow-h">
+          <label className="color-gray input-labels"> Phone Number</label>
+          <label className="color-error input-labels">
+            This field is required.
+          </label>
+        </div>
+
+        <input type="text"></input>
       </div>
     </div>
   );
@@ -153,7 +303,12 @@ const Wizard = () => {
 
   const stepMetadata = ["Your Info", "Select Plan", "Add-Ons", "Summary"];
 
-  const steps = [child1, child2, child3, child4];
+  const steps = [
+    child1,
+    <PlanSelector dispatch={dispatch} state={state as WizardState} />,
+    <AddonSelector dispatch={dispatch} state={state as WizardState} />,
+    child4,
+  ];
 
   const inc = () => {
     console.log("inc");
