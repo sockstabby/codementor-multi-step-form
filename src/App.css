@@ -93,6 +93,19 @@ input:focus {
   outline: none;
 }
 
+.active-duration {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: black;
+}
+
+.inactive-duration {
+  font-size: 0.8rem;
+
+  font-weight: 400;
+  color: grey;
+}
+
 /* label {
   font-weight: 700;
   font-size: 0.8rem;
@@ -133,7 +146,7 @@ input:focus {
 }
 
 .color-error {
-  color: red;
+  color: firebrick;
 }
 
 .nav-control-buttons {
@@ -155,12 +168,24 @@ input:focus {
   justify-content: center;
 }
 
+.col-centered {
+  justify-content: center;
+  align-items: center;
+}
+
 .row-space-between {
   justify-content: space-between;
 }
 
+.text-align-center {
+  text-align: center;
+}
 .grow-h {
   width: 100%;
+}
+
+.grow-v {
+  height: 100%;
 }
 
 .gap5 {
@@ -379,7 +404,44 @@ input[type="checkbox"]:checked::before {
   padding: 15px;
 }
 
-/* button[disabled="disabled"],
-button:disabled {
-  color: black;
-} */
+.toggle-wrapper input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.toggle-wrapper label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 50px;
+  height: 25px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.toggle-wrapper label:after {
+  content: "";
+  position: absolute;
+  top: 3.5px;
+  left: 5px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.toggle-wrapper input:checked + label {
+  background: grey;
+}
+
+.toggle-wrapper input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.toggle-wrapper label:active:after {
+  width: 25px;
+}
