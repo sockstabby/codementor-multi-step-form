@@ -3,11 +3,11 @@
   justify-content: center !important;
 
   width: 100%;
-  height: 100vh;
+  height: 100svh;
 
   align-items: center;
 
-  --blue-color: #483eff;
+  --accent-color: hsl(243, 100%, 62%);
   --summary-background-color: #f7f4ff;
 
   --wizard-background-color: white;
@@ -55,7 +55,13 @@
 
 .content-title {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
+}
+
+.content-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: gray;
 }
 
 input[type="text"] {
@@ -85,7 +91,7 @@ input[type="text"] {
 }
 
 .top-padding-100 {
-  padding-top: 1rem;
+  padding-top: 0.7rem;
 }
 
 input:focus {
@@ -95,7 +101,7 @@ input:focus {
 
 .active-duration {
   font-size: 0.8rem;
-  font-weight: 900;
+  font-weight: 700;
   color: black;
 }
 
@@ -106,25 +112,27 @@ input:focus {
   color: grey;
 }
 
-/* label {
-  font-weight: 700;
-  font-size: 0.8rem;
-} */
-
 .input-labels,
 .plan-labels,
 .step-labels {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 0.8rem;
 }
 
+.addon-price-label {
+  font-weight: 500;
+  font-size: 0.8rem;
+
+  color: var(--accent-color);
+}
+
 .plan-title {
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 .plan-subtitle {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13px;
   color: gray;
 }
@@ -146,7 +154,7 @@ input:focus {
 }
 
 .color-error {
-  color: firebrick;
+  color: hsl(354, 84%, 57%);
 }
 
 .nav-control-buttons {
@@ -212,7 +220,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border: 1px solid var(--blue-color);
+  border: 1px solid var(--accent-color);
   height: 150px;
   border-radius: 10px;
   padding: 15px;
@@ -221,7 +229,8 @@ input:focus {
 }
 
 .selected {
-  background-color: var(--wizard-background-color2) !important;
+  background-color: var(--wizard-background-color2);
+  border: 2px solid gray !important;
 }
 
 .plan-text {
@@ -236,11 +245,11 @@ input:focus {
 }
 
 .addon-item {
-  border: 1px solid var(--blue-color);
+  border: 1px solid var(--accent-color);
   width: 100%;
   border-radius: 10px;
   padding: 15px;
-  height: 80px;
+  height: auto;
 }
 
 .addon-text {
@@ -255,12 +264,12 @@ input:focus {
     flex-direction: column;
     padding: 0;
     background-color: var(--wizard-background-color2);
-    height: 100vh;
+    height: 100svh;
   }
 
   .content-title {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
   }
 
   .wizard-forms-panel {
@@ -295,7 +304,7 @@ input:focus {
     background-color: white;
     margin-right: 20px;
     margin-left: 20px;
-    height: calc(100% - 180px);
+    /* height: calc(100% - 180px); */
   }
 
   input {
@@ -329,7 +338,7 @@ input:focus {
     display: flex;
     flex-direction: row;
     background-color: white;
-    border: 1px solid var(--blue-color);
+    border: 1px solid var(--accent-color);
     height: 90px;
     border-radius: 10px;
     padding: 15px;
@@ -341,10 +350,11 @@ input:focus {
   .plan-text {
     padding-left: 15px;
   }
+}
 
-  .months-free {
-    /* display: none; */
-  }
+.months-free {
+  font-size: 0.7rem;
+  font-weight: 400;
 }
 
 input[type="checkbox"] {
@@ -352,7 +362,7 @@ input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
   place-content: center;
-  accent-color: var(--blue-color);
+  accent-color: var(--accent-color);
 }
 
 input[type="checkbox"]::before {
@@ -370,12 +380,12 @@ input[type="checkbox"]:checked::before {
 
 .addon-title {
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .addon-subtitle {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 400;
   color: gray;
 }
 
@@ -391,13 +401,30 @@ input[type="checkbox"]:checked::before {
 
 .summary-subtitle {
   color: gray;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.grand-cost-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.item-cost-label {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--accent-color);
+}
+
+.plan-cost-label {
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .summary-title {
-  font-size: 16px;
-  font-weight: 900;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .summary-total {
@@ -444,4 +471,17 @@ input[type="checkbox"]:checked::before {
 
 .toggle-wrapper label:active:after {
   width: 25px;
+}
+
+.thankyou-text {
+  color: gray;
+  font-size: 0.9rem;
+}
+
+.plan-item:hover {
+  border: 2px solid gray;
+}
+
+.addon-item:hover {
+  border: 2px solid gray;
 }

@@ -3,8 +3,7 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: #ecf2f7;
-
-  background-color: #646cff;
+  background-color: hsl(243, 100%, 62%);
 }
 
 * {
@@ -23,9 +22,15 @@ body {
 }
 
 :root {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Ubuntu", "Roboto", "Helvetica", "Arial", sans-serif;
   line-height: 1.5;
   font-weight: 400;
+}
+
+input[type="text"] {
+  font-size: 24px;
+  font-family: "Ubuntu", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 16px;
 }
 
 a {

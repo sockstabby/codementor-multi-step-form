@@ -152,7 +152,7 @@ const PersonalInfo = ({ dispatch, state }: ReducerProps) => {
     <div>
       <div className="content-title">Personal Info</div>
 
-      <div className="bottom-padding-200">
+      <div className="bottom-padding-200 content-subtitle">
         Please provide your name, email address and phone number.
       </div>
 
@@ -206,7 +206,7 @@ const PlanSelector = ({ dispatch, state }: ReducerProps) => {
     <div>
       <div className="content-title">Select your plan</div>
 
-      <div className="bottom-padding-200">
+      <div className="bottom-padding-200 content-subtitle">
         You have the option of monthly or yearly billing.
       </div>
 
@@ -305,7 +305,7 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
     <div>
       <div className="content-title">Pick add-ons</div>
 
-      <div className="bottom-padding-200">
+      <div className="content-subtitle bottom-padding-200">
         Add-ons help enhance your gaming experience.
       </div>
 
@@ -331,7 +331,10 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
           </div>
 
           <div>
-            <label> {state.yearlyPlan ? "+$10/yr" : "+$1/mo"} </label>
+            <label className="addon-price-label">
+              {" "}
+              {state.yearlyPlan ? "+$10/yr" : "+$1/mo"}{" "}
+            </label>
           </div>
         </div>
         <div
@@ -352,7 +355,9 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
             </div>
           </div>
           <div>
-            <label> {state.yearlyPlan ? "+$20/yr" : "+$2/mo"} </label>
+            <label className="addon-price-label">
+              {state.yearlyPlan ? "+$20/yr" : "+$2/mo"}{" "}
+            </label>
           </div>
         </div>
         <div
@@ -375,7 +380,10 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
             </div>
           </div>
           <div>
-            <label> {state.yearlyPlan ? "+$20/yr" : "+$2/mo"} </label>{" "}
+            <label className="addon-price-label">
+              {" "}
+              {state.yearlyPlan ? "+$20/yr" : "+$2/mo"}{" "}
+            </label>{" "}
           </div>
         </div>
       </div>
@@ -443,16 +451,16 @@ const SummaryConfirm = ({ state }: ReducerProps) => {
         <div className="summary-text column-container">
           <label className="summary-subtitle">{i.addOn}</label>
         </div>
-        <label className="summary-subtitle"> {i.costLabel}</label>
+        <label className="item-cost-label"> {i.costLabel}</label>
       </div>
     );
   });
 
   return (
     <div>
-      <div className="content-title">Finishing up</div>
+      <div className="content-title ">Finishing up</div>
 
-      <div className="bottom-padding-200">
+      <div className="bottom-padding-200 content-subtitle">
         Double-check everything looks OK before confirming.
       </div>
 
@@ -464,7 +472,7 @@ const SummaryConfirm = ({ state }: ReducerProps) => {
             </label>
             <a> Change</a>
           </div>
-          <label className="summary-title">{planCostLabel}</label>
+          <label className="plan-cost-label">{planCostLabel}</label>
         </div>
 
         {addOnsJSX}
@@ -472,10 +480,9 @@ const SummaryConfirm = ({ state }: ReducerProps) => {
 
       <div className="summary-total row-container row-space-between">
         <label className="summary-subtitle">
-          {" "}
           Total (per {state.yearlyPlan ? "year" : "month"})
         </label>
-        <label className="summary-subtitle"> {grandTotalLabel} </label>
+        <label className="grand-cost-label"> {grandTotalLabel} </label>
       </div>
     </div>
   );
@@ -487,7 +494,7 @@ const ThankYou = () => {
       <div className="column-container col-centered grow-v gap8">
         <img height={100} src={ThankYouIcon}></img>
         <div className="content-title">Thank you!</div>
-        <p className="text-align-center">
+        <p className="text-align-center thankyou-text">
           Thanks for confirming your subscription! We hope you have fun using
           our platform. If you ever need support, please feel free to email us
           at support@loremgaming.com
