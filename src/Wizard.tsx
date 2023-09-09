@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 
 import Arcade from "../requirements/assets/images/icon-arcade.svg";
 import Advanced from "../requirements/assets/images/icon-advanced.svg";
@@ -131,22 +131,31 @@ function reducer(state: WizardState, action: Action) {
 
 const PersonalInfo = ({ dispatch, state }: ReducerProps) => {
   const setName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "setName", value: e.target.value });
-  };
-  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "setEmail", value: e.target.value });
-  };
-  const setPhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: "setPhone", value: e.target.value });
-  };
-
-  useEffect(() => {
-    if (state.name !== "" && state.email !== "" && state.phone !== "") {
+    if (e.target.value !== "" && state.phone !== "" && state.email !== "") {
       dispatch({ type: "setNextButtonEnabled", value: true });
     } else {
       dispatch({ type: "setNextButtonEnabled", value: false });
     }
-  }, []);
+    dispatch({ type: "setName", value: e.target.value });
+  };
+  const setEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== "" && state.phone !== "" && state.name !== "") {
+      dispatch({ type: "setNextButtonEnabled", value: true });
+    } else {
+      dispatch({ type: "setNextButtonEnabled", value: false });
+    }
+
+    dispatch({ type: "setEmail", value: e.target.value });
+  };
+  const setPhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== "" && state.email !== "" && state.name !== "") {
+      dispatch({ type: "setNextButtonEnabled", value: true });
+    } else {
+      dispatch({ type: "setNextButtonEnabled", value: false });
+    }
+
+    dispatch({ type: "setPhone", value: e.target.value });
+  };
 
   return (
     <div>
@@ -211,7 +220,8 @@ const PlanSelector = ({ dispatch, state }: ReducerProps) => {
       </div>
 
       <div className="plan-container  bottom-padding-100">
-        <div
+        <button
+          tabIndex={1}
           className={`plan-item ${
             state.selectedPlan === "Arcade" ? "selected" : ""
           }`}
@@ -220,14 +230,15 @@ const PlanSelector = ({ dispatch, state }: ReducerProps) => {
           {" "}
           <img height={30} src={Arcade}></img>
           <div className="plan-text">
-            <label className="plan-title"> Arcade</label>
-            <label className="plan-subtitle">
+            <p className="plan-title"> Arcade</p>
+            <p className="plan-subtitle">
               {state.yearlyPlan ? "$90/yr" : "$9/mo"}
-            </label>
-            <label className="months-free plan-subtitle"> 2 months free</label>
+            </p>
+            <p className="months-free plan-subtitle"> 2 months free</p>
           </div>
-        </div>
-        <div
+        </button>
+        <button
+          tabIndex={2}
           className={`plan-item ${
             state.selectedPlan === "Advanced" ? "selected" : ""
           }`}
@@ -236,14 +247,15 @@ const PlanSelector = ({ dispatch, state }: ReducerProps) => {
           <img height={30} src={Advanced}></img>
 
           <div className="plan-text">
-            <label className="plan-title"> Advanced</label>
-            <label className="plan-subtitle">
+            <p className="plan-title"> Advanced</p>
+            <p className="plan-subtitle">
               {state.yearlyPlan ? "$120/yr" : "$12/mo"}
-            </label>
-            <label className="months-free plan-subtitle"> 2 months free</label>
+            </p>
+            <p className="months-free plan-subtitle"> 2 months free</p>
           </div>
-        </div>
-        <div
+        </button>
+        <button
+          tabIndex={3}
           className={`plan-item ${
             state.selectedPlan === "Pro" ? "selected" : ""
           }`}
@@ -252,13 +264,13 @@ const PlanSelector = ({ dispatch, state }: ReducerProps) => {
           <img height={30} src={Pro}></img>
 
           <div className="plan-text">
-            <label className="plan-title"> Pro</label>
-            <label className="plan-subtitle">
+            <p className="plan-title"> Pro</p>
+            <p className="plan-subtitle">
               {state.yearlyPlan ? "$150/yr" : "$15/mo"}
-            </label>
-            <label className="months-free plan-subtitle"> 2 months free</label>
+            </p>
+            <p className="months-free plan-subtitle"> 2 months free</p>
           </div>
-        </div>
+        </button>
       </div>
 
       <div className="monthly-toggle-container row-container row-centered gap8">
@@ -310,7 +322,8 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
       </div>
 
       <div className="addons-container column-container gap8 bottom-padding-100">
-        <div
+        <button
+          tabIndex={1}
           onClick={toggleOnlineService}
           className={`addon-item row-space-between row-container ${
             state.addonOnlineService ? "selected" : ""
@@ -323,10 +336,8 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               onChange={() => {}}
             ></input>
             <div className="addon-text column-container">
-              <label className="addon-title"> Online service</label>
-              <label className="addon-subtitle">
-                Access to multiplayer games
-              </label>
+              <p className="addon-title"> Online service</p>
+              <p className="addon-subtitle">Access to multiplayer games</p>
             </div>
           </div>
 
@@ -336,8 +347,9 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               {state.yearlyPlan ? "+$10/yr" : "+$1/mo"}{" "}
             </label>
           </div>
-        </div>
-        <div
+        </button>
+        <button
+          tabIndex={2}
           onClick={toggleStorage}
           className={`addon-item row-space-between row-container ${
             state.addonStorage ? "selected" : ""
@@ -350,8 +362,8 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               onChange={() => {}}
             ></input>
             <div className="addon-text column-container">
-              <label className="addon-title"> Larger storage</label>
-              <label className="addon-subtitle"> Extra 1TB of cloud save</label>
+              <p className="addon-title"> Larger storage</p>
+              <p className="addon-subtitle"> Extra 1TB of cloud save</p>
             </div>
           </div>
           <div>
@@ -359,8 +371,9 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               {state.yearlyPlan ? "+$20/yr" : "+$2/mo"}{" "}
             </label>
           </div>
-        </div>
-        <div
+        </button>
+        <button
+          tabIndex={3}
           onClick={toggleCustomProfile}
           className={`addon-item row-space-between row-container ${
             state.addonCustomProfile ? "selected" : ""
@@ -373,10 +386,8 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               onChange={() => {}}
             ></input>
             <div className="addon-text column-container">
-              <label className="addon-title"> Customizable profile</label>
-              <label className="addon-subtitle">
-                Custom theme on your profile
-              </label>
+              <p className="addon-title"> Customizable profile</p>
+              <p className="addon-subtitle">Custom theme on your profile</p>
             </div>
           </div>
           <div>
@@ -385,7 +396,7 @@ const AddonSelector = ({ dispatch, state }: ReducerProps) => {
               {state.yearlyPlan ? "+$20/yr" : "+$2/mo"}{" "}
             </label>{" "}
           </div>
-        </div>
+        </button>
       </div>
     </div>
   );
@@ -509,15 +520,15 @@ const initialState: WizardState = {
   addonOnlineService: false,
   addonStorage: false,
   addonCustomProfile: false,
-  name: "Eric",
-  email: "erockp1@gmail.com",
-  phone: "709-234-5654",
-  nextButtonEnabled: false,
+  name: "",
+  email: "",
+  phone: "",
+  nextButtonEnabled: true, //fix me,
   yearlyPlan: false,
 };
 
 const Wizard = () => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
 
   // each child can pass its own reducer function
   // we will call all reducers of our children
@@ -615,7 +626,7 @@ const Wizard = () => {
         {steps[current]}
 
         {!thankYouPage && (
-          <div className="nav-control-buttons">
+          <div className="nav-control-buttons row-container row-space-between">
             <a onClick={dec}>Go Back</a>
 
             {lastPage ? (

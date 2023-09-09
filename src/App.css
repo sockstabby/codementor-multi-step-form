@@ -46,13 +46,6 @@
   width: 500px;
 }
 
-.form-content {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  /* min-width: 400px; */
-}
-
 .content-title {
   font-size: 2rem;
   font-weight: 700;
@@ -107,7 +100,6 @@ input:focus {
 
 .inactive-duration {
   font-size: 0.8rem;
-
   font-weight: 400;
   color: grey;
 }
@@ -122,7 +114,6 @@ input:focus {
 .addon-price-label {
   font-weight: 500;
   font-size: 0.8rem;
-
   color: var(--accent-color);
 }
 
@@ -157,11 +148,6 @@ input:focus {
   color: hsl(354, 84%, 57%);
 }
 
-.nav-control-buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
 .column-container {
   display: flex;
   flex-direction: column;
@@ -179,6 +165,11 @@ input:focus {
 .col-centered {
   justify-content: center;
   align-items: center;
+}
+
+.col-start {
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .row-space-between {
@@ -229,13 +220,15 @@ input:focus {
 }
 
 .selected {
-  background-color: var(--wizard-background-color2);
-  border: 2px solid gray !important;
+  background-color: var(--wizard-background-color2) !important;
+  border: 2px solid var(--accent-color) !important;
 }
 
 .plan-text {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
 }
 
 .monthly-toggle-container {
@@ -250,6 +243,8 @@ input:focus {
   border-radius: 10px;
   padding: 15px;
   height: auto;
+
+  background-color: var(--wizard-background-color);
 }
 
 .addon-text {
@@ -257,10 +252,9 @@ input:focus {
 }
 
 @media screen and (max-width: 580px) {
-  /* style changes when the screen gets larger */
+  /* style changes when screen is 580 or less  */
 
   .wizard {
-    display: flex;
     flex-direction: column;
     padding: 0;
     background-color: var(--wizard-background-color2);
@@ -272,17 +266,6 @@ input:focus {
     font-weight: 700;
   }
 
-  .wizard-forms-panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 3rem;
-    border-radius: 10px;
-    width: auto;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
-      rgba(17, 17, 26, 0.05) 0px 8px 32px;
-  }
-
   .wizard-status-panel {
     display: flex;
     justify-content: center;
@@ -291,7 +274,6 @@ input:focus {
     width: 100vw;
     height: 280px;
     margin-top: -100px;
-    padding: 1.8rem;
     border-radius: 0px;
   }
 
@@ -300,15 +282,17 @@ input:focus {
   }
 
   .wizard-forms-panel {
+    flex-direction: column;
+    border-radius: 10px;
+    width: auto;
     margin-top: -90px;
-    background-color: white;
     margin-right: 20px;
     margin-left: 20px;
-    /* height: calc(100% - 180px); */
-  }
-
-  input {
-    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    width: auto;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+      rgba(17, 17, 26, 0.05) 0px 8px 32px;
   }
 
   .nav-control-buttons {
@@ -335,14 +319,9 @@ input:focus {
   }
 
   .plan-item {
-    display: flex;
     flex-direction: row;
-    background-color: white;
-    border: 1px solid var(--accent-color);
-    height: 90px;
-    border-radius: 10px;
+    height: auto;
     padding: 15px;
-    align-items: flex-start;
     justify-content: unset;
     align-items: center;
   }
@@ -365,15 +344,6 @@ input[type="checkbox"] {
   accent-color: var(--accent-color);
 }
 
-input[type="checkbox"]::before {
-  content: "";
-  width: 5rem;
-  height: 5rem;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--form-control-color);
-}
-
 input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
@@ -381,12 +351,16 @@ input[type="checkbox"]:checked::before {
 .addon-title {
   font-size: 16px;
   font-weight: 500;
+  text-align: left;
+  line-height: 1.3rem;
 }
 
 .addon-subtitle {
   font-size: 13px;
   font-weight: 400;
   color: gray;
+  text-align: left;
+  line-height: 1.3rem;
 }
 
 .summary-container {
@@ -478,10 +452,7 @@ input[type="checkbox"]:checked::before {
   font-size: 0.9rem;
 }
 
-.plan-item:hover {
-  border: 2px solid gray;
-}
-
+.plan-item:hover,
 .addon-item:hover {
-  border: 2px solid gray;
+  border: 2px solid var(--accent-color);
 }
